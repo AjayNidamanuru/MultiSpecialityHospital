@@ -99,6 +99,12 @@ def transform_and_load():
     # Process each record to create country-specific collections
     for record in staging_data:
         country = record.get("County")  # Get the customer's country
+
+        # Check if country data is present
+        if not country:
+            print(f"Skipping record for {record.get('Name')}: No country data available.")
+            continue  # Skip this record if there's no country data
+        
         collection_name = f"Table_{country}"  # Create collection name based on country
 
         # Prepare the record for insertion
